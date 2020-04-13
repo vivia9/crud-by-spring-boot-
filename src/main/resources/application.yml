@@ -1,7 +1,7 @@
 mybatis:
-  type-aliases-package: com.sbs.starter.dto
+  type-aliases-package: com.example.demo.dto
 server:
-  port: 8083
+  port: 8080
 spring:
   mvc:
     view:
@@ -12,7 +12,7 @@ spring:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mysql://127.0.0.1:3306/starter?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
-    password: 'root'
+    password: 'password'
   servlet:
     multipart:
       enabled: true

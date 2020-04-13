@@ -73,6 +73,14 @@
 			<optional>true</optional>
 		</dependency>
 		
+		
+		<!-- JSP 엔진, 스프링의 기본 내장 톰캣에는 이게 없습니다. -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		
+			
 
 	<!-- 유틸, Maps.of 같은거 쓰게 해줌  -->
 		<dependency>
@@ -112,6 +120,23 @@
 			</exclusions>
 		</dependency>
 		
+				
+				<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.6</version>
+		</dependency>
+				
+		
+		
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1</version>
+		</dependency>
+
 		
 	</dependencies>
 
