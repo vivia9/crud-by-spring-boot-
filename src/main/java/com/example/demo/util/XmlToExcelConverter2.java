@@ -21,7 +21,7 @@ import java.net.URL;
  * Created by Filipe Ares (filipe.ares@jbaysolutions.com) - http://blog.jbaysolutions.com
  * Date: 17-08-2015.
  */
-public class XmlToExcelConverter {
+public class XmlToExcelConverter2 {
     private static Workbook workbook;
     private static int rowNum;
 
@@ -32,7 +32,6 @@ public class XmlToExcelConverter {
     private final static int PRODUCT_CODE_COLUMN = 4;
     private final static int PRODUCT_MRL_COLUMN = 5;
     private final static int APPLICATION_DATE_COLUMN = 6;
-
 
 
     public static void main(String[] args) throws Exception {
@@ -87,25 +86,25 @@ public class XmlToExcelConverter {
         
         System.out.println("444");
         
-        NodeList nList = doc.getElementsByTagName("system");
+        NodeList nList = doc.getElementsByTagName("Substances");
         for (int i = 0; i < nList.getLength(); i++) {
             System.out.println("Processing element " + (i+1) + "/" + nList.getLength());
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                String substanceName = element.getElementsByTagName("HostName").item(0).getTextContent();
-                String entryForce = element.getElementsByTagName("ipAddress").item(0).getTextContent();
-                String directive = element.getElementsByTagName("OsVersion").item(0).getTextContent();
+                String substanceName = element.getElementsByTagName("Name").item(0).getTextContent();
+                String entryForce = element.getElementsByTagName("entry_force").item(0).getTextContent();
+                String directive = element.getElementsByTagName("directive").item(0).getTextContent();
 
-                NodeList prods = element.getElementsByTagName("Item");
+                NodeList prods = element.getElementsByTagName("Product");
                 for (int j = 0; j < prods.getLength(); j++) {
                     Node prod = prods.item(j);
                     if (prod.getNodeType() == Node.ELEMENT_NODE) {
                         Element product = (Element) prod;
-                        String prodName = product.getElementsByTagName("iCode").item(0).getTextContent();
-                        String prodCode = product.getElementsByTagName("iTitle").item(0).getTextContent();
-                        String lmr = product.getElementsByTagName("result").item(0).getTextContent();
-                        String applicationDate = product.getElementsByTagName("Evidence").item(0).getTextContent();
+                        String prodName = product.getElementsByTagName("Product_name").item(0).getTextContent();
+                        String prodCode = product.getElementsByTagName("Product_code").item(0).getTextContent();
+                        String lmr = product.getElementsByTagName("MRL").item(0).getTextContent();
+                        String applicationDate = product.getElementsByTagName("ApplicationDate").item(0).getTextContent();
 
                         Row row = sheet.createRow(rowNum++);
                         Cell cell = row.createCell(SUBSTANCE_NAME_COLUMN);
@@ -128,18 +127,13 @@ public class XmlToExcelConverter {
 
                         cell = row.createCell(APPLICATION_DATE_COLUMN);
                         cell.setCellValue(applicationDate);
-                        
-                        
-                        
-                        
-                        
                     }
                 }
             }
         }
 
 
-        FileOutputStream fileOut = new FileOutputStream("/Users/jackie.chan/Downloads/test4.xlsx");
+        FileOutputStream fileOut = new FileOutputStream("/Users/jackie.chan/Downloads/test2.xlsx");
         workbook.write(fileOut);
         workbook.close();
         fileOut.close();
@@ -171,35 +165,32 @@ public class XmlToExcelConverter {
         rowNum = 0;
         Row row = sheet.createRow(rowNum++);
         Cell cell = row.createCell(SUBSTANCE_NAME_COLUMN);
-        cell.setCellValue("HostName");
+        cell.setCellValue("Substance name");
         cell.setCellStyle(style);
 
         cell = row.createCell(SUBSTANCE_ENTRY_FORCE_COLUMN);
-        cell.setCellValue("ipAddress");
+        cell.setCellValue("Substance entry_force");
         cell.setCellStyle(style);
 
         cell = row.createCell(SUBSTANCE_DIRECTIVE_COLUMN);
-        cell.setCellValue("OsVersion");
+        cell.setCellValue("Substance directive");
         cell.setCellStyle(style);
 
         cell = row.createCell(PRODUCT_NAME_COLUMN);
-        cell.setCellValue("iCode");
+        cell.setCellValue("Product name");
         cell.setCellStyle(style);
 
         cell = row.createCell(PRODUCT_CODE_COLUMN);
-        cell.setCellValue("iTitle");
+        cell.setCellValue("Product code");
         cell.setCellStyle(style);
 
         cell = row.createCell(PRODUCT_MRL_COLUMN);
-        cell.setCellValue("result");
+        cell.setCellValue("MRL");
         cell.setCellStyle(style);
 
         cell = row.createCell(APPLICATION_DATE_COLUMN);
-        cell.setCellValue("Evidence");
+        cell.setCellValue("Application Date");
         cell.setCellStyle(style);
-        
-
-        
 
     }
 }
