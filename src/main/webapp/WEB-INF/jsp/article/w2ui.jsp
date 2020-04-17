@@ -21,26 +21,49 @@
 
 
 
-<button class="w2ui-btn" onclick="w2ui['layout2'].toggle('right', window.instant)">Right</button>
+
+<button class="w2ui-btn" onclick="w2ui['layout'].toggle('right', window.instant)">Right</button>
 
 
-	< <div id="layout3" >
-		<div id="maintest">
-		  	<div id="grid" style="width: 100%; height: 400px; overflow: hidden;"></div>
-			<!-- <div id="toolbar" style="width: 100%; height: 400px; overflow: hidden;"></div> -->
-			</div>
-	</div>
+<div id="layout" style="width: 100%; height: 400px;">
+
+<div id="main">
+<div id="grid" style="width: 100%; height: 400px; overflow: hidden;"></div>
+<div id="toolbar" style="width: 100%; height: 400px; overflow: hidden;"></div>
+</div>
+
+
+</div>
+
  
-	
+<script type="text/javascript">
 
+var main_Contents = $("#main").html(); 
+ $("#main_Contents").html(""); 
+
+
+$(function () {    
+    var pstyle = 'border: 1px solid #dfdfdf; ';
+    $('#layout').w2layout({
+        name: 'layout',
+        panels: [
+            
+            { type: 'main', resizable: true, content: main_Contents },
+            
+            { type: 'right', size: 200, resizable: true, hidden: true,  content: 'right' }
+            
+        ]
+    });
+    
+});
 	
-	
+</script>	
 	
 
 
   <div class="Contents">
   
-  <button class="w2ui-btn F_right" id="rightMenu" onclick="w2ui['layout2'].toggle('right', window.instant)" style="display:none;">상세정보</button>
+  <button class="w2ui-btn F_right" id="rightMenu" onclick="w2ui['layout'].toggle('right', window.instant)" style="display:none;">상세정보</button>
   
     <form id="frm1" name="frm1" action="" method="post">
         <input type="hidden" name="_csrf" value="71da130b-c422-450f-84e6-f8a7640b0763" />
@@ -239,7 +262,7 @@ $(function () {
                     { type: 'break' },
                     { type: 'button', id: 'btn_exclDown', caption:'button', text: 'Excel', checked:false, icon:'icon_content exclDown'},
                     { type: 'break' },
-                    { type:'button',id:'btn_right',caption:'button',text:'', icon:'fa-chevron-left'}, 
+                    { type:'button',id:'btn_right',caption:'button',text:'상세보기 ', icon:'fa-chevron-left'}, 
                     { id: 'add', type: 'button', caption: 'Add Record', icon: 'w2ui-icon-plus' }
 
 
@@ -498,27 +521,27 @@ function rightMenuOpen() {
 }
 
 
-
+/* 
 $( document ).ready(function() {
     /* var main_Contents = $("#main_Contents").html(); */
-    var main_Contents = $("#grid").html(); 
- 	$("#main_Contents").html("");
+    /*  var main_Contents = $("#maintest").html(); 
+ 	/* $("#main_Contents").html(""); */
 
     
 
-     
+  /*    
     var right_Contents = $("#right_Contents").html(); 
 
    
     
-    $('#layout2').w2layout({
+    $('#layout3').w2layout({
         name: 'layout3',
         panels: [
             { type: 'main',  size: 600, resizable: true, content: main_Contents },
             /* { type: 'right' , size: 200, minSize:250, resizable: true, hidden:true, content: right_Contents}  */
-            { type: 'right', size: 200, resizable: true, hidden: true,  content: 'right' }
+  /*           { type: 'right', size: 200, resizable: true, hidden: true,  content: 'right' }
         ]
-    });
+    }); */
    /*  $("#layout2").html(right_Contents);
     $("#right_Contents").html("") */
 
@@ -559,8 +582,8 @@ $( document ).ready(function() {
     /* }); */
 /*     w2ui['layout'].content('main', w2ui['layout2']);
     w2ui['layout2'].content('right', w2ui['form']); 
-     */
-});
+     */ 
+	/*   });  */
 
 
 </script>
