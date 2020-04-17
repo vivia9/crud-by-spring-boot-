@@ -412,6 +412,59 @@ var srchActPlanRprtYn="";
 
 
 
+/* 엑셀 다운팝업 */
+function openLayerPop(){
+    var colArr = new Array();
+    var colArr2 = new Array();
+    var colMap = new Map();
+    colArr = w2ui["grid"].columns;
+
+    for(var i = 0; i < w2ui["grid"].columns.length; i++){
+        if(w2ui["grid"].columns[i].hidden != true){
+            var obj = {
+                    recid : w2ui["grid"].columns[i].field,
+                    colId : w2ui["grid"].columns[i].field,
+                    colNm : w2ui["grid"].columns[i].caption,
+                };
+            colArr2.push(obj);
+        }
+    }
+
+    var obj2 = {
+            recid : "standard",
+            colId : "standard",
+            colNm : "진단기준"
+        };
+    colArr2.push(obj2);
+
+    var obj3 = {
+            recid : "statusTxt",
+            colId : "statusTxt",
+            colNm : "진단상세"
+    };
+    colArr2.push(obj3);
+
+    var obj4 = {
+            recid : "fix",
+            colId : "fix",
+            colNm : "조치방법"
+    };
+    colArr2.push(obj4);
+
+    var colParam = encodeURIComponent(JSON.stringify(colArr2));
+
+    w2popup.open({
+        title: 'Excel Download',
+        body: '<iframe src="' + jsContextPath + '/vulChk/excelColSel?columns=' + colParam + '" id="popExcelColSel" frameborder="0" framespacing="0" style="width:225px; height:285px"></iframe>',
+        width           : 227,
+        height          : 390,
+        buttons   : '<button class="w2ui-btn" id="btn_down" onclick="fn_colSelList_proc();">내려받기</button> ',
+        onOpen  : function () {
+        },
+        onClose : function (event) {
+        }
+    });
+}
 
 
 
@@ -453,6 +506,25 @@ $(function () {
 });
 
 
+
+function fn_excelDown(){
+    var srchChkNm = "";
+    if ($('#chkName').w2field()) {
+        var str = [], kk = -1;
+        var objChkNm = $('#chkName').w2field().options.selected;
+        for(var rec, ii=-1; rec = objChkNm[++ii];) {
+            if (ii > 0) {
+                str[++kk] = ",";
+            }
+            str[++kk] = rec.id;
+        }
+        srchChkNm = str.join('');
+    }
+
+    document.frm1.action = jsContextPath + "/vulChk/actPlanExlDownProc.xls?srchChkNm="+srchChkNm;
+    document.frm1.method = "POST";
+    document.frm1.submit();
+}
 
 
 
