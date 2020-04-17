@@ -20,18 +20,28 @@
 
 
 
-    
-<div id="grid" style="width: 100%; height: 400px; overflow: hidden;"></div>
-<div id="toolbar" style="width: 100%; height: 400px; overflow: hidden;"></div>
-<br>
+
+<button class="w2ui-btn" onclick="w2ui['layout2'].toggle('right', window.instant)">Right</button>
 
 
+	< <div id="layout3" >
+		<div id="maintest">
+		  	<div id="grid" style="width: 100%; height: 400px; overflow: hidden;"></div>
+			<!-- <div id="toolbar" style="width: 100%; height: 400px; overflow: hidden;"></div> -->
+			</div>
+	</div>
+ 
+	
 
-
-
+	
+	
+	
 
 
   <div class="Contents">
+  
+  <button class="w2ui-btn F_right" id="rightMenu" onclick="w2ui['layout2'].toggle('right', window.instant)" style="display:none;">상세정보</button>
+  
     <form id="frm1" name="frm1" action="" method="post">
         <input type="hidden" name="_csrf" value="71da130b-c422-450f-84e6-f8a7640b0763" />
         <input type="hidden" name="srchChkStDt" value="" />
@@ -46,20 +56,26 @@
         <input type="hidden" name="srchColId" value="" />
         <input type="hidden" name="srchColNm" value="" />
     </form>
-
-    <div id="layout2" style="display:none;">
-        <div id="main_Contents">
-            <div class="Ctitle">
-                <img src="/images/egovframework/skin1/skin1/sidebar03_title.png" alt="SolidStep 취약점 점검 &gt; 조치계획 수립"/>
+ <div class="container">
+<!--     <div id="layout2" style="display:none;"> -->
+	    <!-- <div id="layout2"  style="display:none;"> -->
+	    
+      <div id="layout2"  style="display:none;" >
+      
+        <div id="main_Contents" >
+            <!-- <div class="Ctitle"> -->
+            <div>
+                
                 <h3>SolidStep 취약점 점검 &gt; 조치계획 수립</h3>
             </div>
-            <div id="toolbar" style="padding: 6px 3px; border-top:1px solid #d5d8d8;"></div>
-            <div id="mainGrid" style="width: 100%; height:calc(100% - 74px);"></div>
+            	<div id="grid" style="width: 100%; height: 400px; overflow: hidden;"></div>
+				<div id="toolbar" style="width: 100%; height: 400px; overflow: hidden;"></div>
+
         </div>
         <div id="right_Contents" class="w2uilayout">
             <div id="form">
                 <div class="w2ui-page page-0">
-                    <div class="w2ui-field w2ui-span3">
+         <!--            <div class="w2ui-field w2ui-span3">
                         <label>진단항목</label>
                         <div>
                             <input name="userCode" type="text" >
@@ -99,11 +115,14 @@
                         <label>조치방법</label>
                         <div>
                             <textarea name="fix" type="text" class="bigtextarea_214"></textarea>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
+    
+    </div>
+    
     </div>
 </div>
 
@@ -120,7 +139,7 @@ $(function () {
 function fn_popChangeDateSave() {
     var actDateNm = $('input[type=us-date]').val();
     var chg;
-    var grid = w2ui['mainGrid'].getSelection();
+    var grid = w2ui['grid'].getSelection();
     //빈값일경우 저장을하지 않는다.
     if(actDateNm == "" || actDateNm == null){
         w2alert('빈값은 저장하실수 없습니다.','알림')
@@ -128,7 +147,7 @@ function fn_popChangeDateSave() {
     }
 
     for(var rec, ii=-1; rec = grid[++ii];) {
-        chg = w2ui['mainGrid'].get(rec);
+        chg = w2ui['grid'].get(rec);
         chg.w2ui = chg.w2ui || {};
         chg.w2ui.changes = chg.w2ui.changes || {};
         chg.w2ui.changes.actLmtDtDtl = actDateNm;
@@ -139,19 +158,21 @@ function fn_popChangeDateSave() {
 
     sendAjax(jsContextPath + "/vulChk/urlUpdateActLimitDtProc.json",{request:saveCntnt,actLmtDtDtl:actDateNm},function(data){
         w2alert('조치예정일이 변경되었습니다.','알림').done(function () {
-            w2ui['mainGrid'].save();
+            w2ui['grid'].save();
             w2popup.close();
             fn_loadGridData();
         });
     });
 }
 </script>
+
+   
     <div class="cont-area pop_margin" >
         <div class="text-area" style="text-align:center; margin-bottom:10px;">조치예정일을 선택하고 아래 일괄지정 버튼을 누르세요.<br />*참고 : 목록의 체크된 것만 적용됩니다.</div>
         <div class="input-area04" style="text-align:center;">
             <input type="us-date" style="width:120px; text-align:center;">
         </div>
-    </div>
+    </div> 
 </div>
 </div>
   
@@ -163,65 +184,12 @@ function fn_popChangeDateSave() {
 
 
 
-var config = {
-	    layout: {
-	        name: 'layout',
-	        padding: 0,
-	        panels: [
-	            { type: 'top', size: 32, content: '<div style="padding: 7px;">Top Panel</div>', style: 'border-bottom: 1px solid silver;' },
-	            { type: 'left', size: 200, resizable: true, minSize: 120 },
-	            { type: 'main', minSize: 350, overflow: 'hidden' }
-	        ]
-	    },
-
-	    form: { 
-	        header: 'Edit Record',
-	        name: 'form',
-	        fields: [
-	            { name: 'recid', type: 'text', html: { caption: 'ID', attr: 'size="10" readonly' } },
-	            { name: 'fname', type: 'text', required: true, html: { caption: 'First Name', attr: 'size="40" maxlength="40"' } },
-	            { name: 'lname', type: 'text', required: true, html: { caption: 'Last Name', attr: 'size="40" maxlength="40"' } },
-	            { name: 'email', type: 'email', html: { caption: 'Email', attr: 'size="30"' } },
-	            { name: 'sdate', type: 'date', html: { caption: 'Date', attr: 'size="10"' } }
-	        ],
-	        actions: {
-	            Reset: function () {
-	                this.clear();
-	            },
-	            Save: function () {
-	                var errors = this.validate();
-	                if (errors.length > 0) return;
-	                if (this.recid == 0) {
-	                    w2ui.grid.add($.extend(true, { recid: w2ui.grid.records.length + 1 }, this.record));
-	                    w2ui.grid.selectNone();
-	                    this.clear();
-	                } else {
-	                    w2ui.grid.set(this.recid, this.record);
-	                    w2ui.grid.selectNone();
-	                    this.clear();
-	                }
-	            }
-	        }
-	    }
-
-	
-	};
-
-
-
-$(function () {
-    // initialization in memory
-    $().w2layout(config.layout);
-    
-});
-
-
 
 
 $(function () {
     $('#grid').w2grid({ 
         name: 'grid', 
-        header: 'List of Names',
+        header: 'My Grid',
         url: '/test3',       
         recid: 'id', 
         method: 'GET', // need this to avoid 412 error on Safari
@@ -335,50 +303,7 @@ $(function () {
         onReload: function(event) {
             fn_loadGridData();
         },
-        onClick: function(event) {
-            var grid = this;
-            var form = w2ui.form;
-            var record = this.get(event.recid);
-            event.onComplete = function () {
-                if (grid.columns[event.column]) {
-                    if (grid.columns[event.column].field == 'chrNmArr') {
-                        
-                        var get_sel = w2ui['mainGrid'].getSelection();
-                        if (get_sel.length != 1) {
-                            w2ui['mainGrid'].select(event.recid);
-                        }
-                        $("#recId").val(event.recid);
-                        var lstChrId = new Array();
-                        var chrIdArr = record.chrIdArr;
-                        if (chrIdArr != null && chrIdArr != "") {
-                            var chrIdArrLst = chrIdArr.split(",");
-                            for(var rec, ii=-1; rec = chrIdArrLst[++ii];) {
-                                lstChrId[ii] = rec;
-                            }
-                        }
-                        $('#firstChrId').val(JSON.stringify(lstChrId));
-                        fn_popRprsn();
-                    }
-                }
-
-                var sel = grid.getSelection();
-                if (sel.length == 1) {
-//                     if (mainGridChg != sel[0]) {
-                        fn_formEditingOn('form');
-                        fn_loadDtlData(form,sel[0],'1');
-//                     } else {
-//                     }
-//                     mainGridChg = sel[0];
-//                 } else if (sel.length > 1) {
-//                     form.clear();
-//                     fn_formEditingOff('form');
-// //                     $("#chrIdSec").html("");
-                } else {
-                    form.clear();
-                    fn_formEditingOff('form');
-                }
-            }
-        },
+   
         onChange: function (event) {
             event.onComplete = function () {
                 fnChgCbActLmtDtDtl();
@@ -548,6 +473,95 @@ function fn_loadGridData() {
             fn_sttstInfo(srchChkNm, $("input[name=srchChkStDt]").val(), $("input[name=srchChkEdDt]").val(), $("input[name=srchProcYn]").val());
     });
 }
+
+
+function fn_formEditingOn(frmNm) {
+    var frmObj = w2ui[frmNm];
+    /* frmObj.clear(); */
+    
+    document.getElementsById([frmObj])[0].value = "";
+    
+
+    for(var rec, ii=-1; rec = frmObj.fields[++ii];) {
+        if (rec.type == "text" || rec.type == "textarea") {
+            if (rec.readonly) {
+            } else {
+                $('#' + rec.name).attr("readonly",false);
+            }
+        }
+    }
+}
+
+
+function rightMenuOpen() {
+    $('#rightMenu').trigger('click');
+}
+
+
+
+$( document ).ready(function() {
+    /* var main_Contents = $("#main_Contents").html(); */
+    var main_Contents = $("#grid").html(); 
+ 	$("#main_Contents").html("");
+
+    
+
+     
+    var right_Contents = $("#right_Contents").html(); 
+
+   
+    
+    $('#layout2').w2layout({
+        name: 'layout3',
+        panels: [
+            { type: 'main',  size: 600, resizable: true, content: main_Contents },
+            /* { type: 'right' , size: 200, minSize:250, resizable: true, hidden:true, content: right_Contents}  */
+            { type: 'right', size: 200, resizable: true, hidden: true,  content: 'right' }
+        ]
+    });
+   /*  $("#layout2").html(right_Contents);
+    $("#right_Contents").html("") */
+
+/*     $('#form').w2form({
+        name     : 'form',
+        header   : '취약항목 상세 정보',
+    /*     onProgress: function (event) {
+            event.preventDefault();
+        },
+        onRender:function(event) {
+            w2ui['form'].reload();
+        }, 
+         fields: [
+            { name: 'userCode', type: 'text', html: { caption: '진단항목'}},
+            { name: 'userClass', type: 'text', html: { caption: '항목분류'}},
+            { name: 'title', type: 'text', html: { caption: '항목명'}},
+            { name: 'userLevelCdNm', type: 'text', html: { caption: '위험도'}},
+            { name: 'standard', type: 'textarea', html: { caption: '진단기준'}},
+            { name: 'statusTxt', type: 'textarea', html: { caption: '진단상세'}},
+            { name: 'fix', type: 'textarea', html: { caption: '조치방법'}}
+        ]
+/*         actions: {
+            reset: function () {
+                this.clear();
+            },
+            save: function () {
+                //this.save();
+                var obj = this;
+                this.save({}, function (data) {
+                    if (data.status == 'error') {
+                        console.log('ERROR: '+ data.message);
+                        return;
+                    }
+                    obj.clear();
+                });
+            }
+        } */
+    /* }); */
+/*     w2ui['layout'].content('main', w2ui['layout2']);
+    w2ui['layout2'].content('right', w2ui['form']); 
+     */
+});
+
 
 </script>
 
